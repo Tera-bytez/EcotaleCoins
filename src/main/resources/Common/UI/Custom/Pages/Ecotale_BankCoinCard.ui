@@ -1,0 +1,35 @@
+$E = "Ecotale_Common.ui";
+
+Group #CoinCardBtn {
+  Anchor: (Width: 140, Height: 105, Right: 10, Bottom: 8);
+  Background: (Color: #0f1525);
+  Padding: (Top: 6, Bottom: 6, Left: 6, Right: 6);
+  LayoutMode: Top;
+  OutlineColor: #3a4a6a;
+  OutlineSize: 1;
+  
+  Group #IconWrapper {
+    Anchor: (Height: 48);
+    LayoutMode: Center;
+    
+    ItemIcon #CoinIcon {
+      Anchor: (Width: 44, Height: 44);
+    }
+  }
+  
+  Label #CoinName {
+    Text: "Copper";
+    Style: (FontSize: 11, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+    Anchor: (Bottom: 2);
+  }
+  
+  Label #CoinCount {
+    Text: "x0";
+    Style: (FontSize: 12, TextColor: #32CD32, RenderBold: true, HorizontalAlignment: Center);
+  }
+  
+  Label #CoinValue {
+    Text: "$0";
+    Style: (FontSize: 10, TextColor: #FFD700, HorizontalAlignment: Center);
+  }
+}

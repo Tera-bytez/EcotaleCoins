@@ -1,0 +1,27 @@
+$E = "Ecotale_Common.ui";
+
+// Compact coin item for preview row
+// Smaller than CoinCard, displays horizontally
+Group #CoinPreviewItem {
+  Anchor: (Width: 70, Height: 44, Right: 8);
+  Background: (Color: #0a1015);
+  Padding: (Top: 4, Bottom: 4, Left: 4, Right: 4);
+  LayoutMode: Left;
+  OutlineColor: #2a3a5a;
+  OutlineSize: 1;
+  
+  ItemIcon #CoinIcon {
+    Anchor: (Width: 32, Height: 32, Vertical: 0, Right: 4);
+  }
+  
+  Group #CoinInfo {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Anchor: (Vertical: 0);
+    
+    Label #CoinQty {
+      Text: "x0";
+      Style: (FontSize: 11, TextColor: #32CD32, RenderBold: true);
+    }
+  }
+}

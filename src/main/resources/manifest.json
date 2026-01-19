@@ -1,0 +1,17 @@
+{
+  "Group": "Ecotale",
+  "Name": "EcotaleCoins",
+  "Version": "1.0.0",
+  "Description": "Physical coins addon for Ecotale economy - adds physical coin items, bank vault, and coin drops",
+  "Authors": [{"Name": "Tera-bytez"}],
+  "Website": "https://github.com/Tera-bytez/Ecotale",
+  "ServerVersion": "*",
+  "Dependencies": {
+    "Hytale:EntityModule": "*",
+    "Ecotale:Ecotale": "*"
+  },
+  "OptionalDependencies": {},
+  "DisabledByDefault": false,
+  "Main": "com.ecotalecoins.Main",
+  "IncludesAssetPack": true
+}

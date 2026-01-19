@@ -1,0 +1,667 @@
+﻿$E = "Ecotale_Common.ui";
+
+Group #BankRoot {
+  Anchor: (Left: 0, Top: 0, Right: 0, Bottom: 0);
+  LayoutMode: Center;
+
+  Group #BankCard {
+    Anchor: (Width: 560, Height: 580);
+    Background: (Color: #1a1a2eee);
+    LayoutMode: Top;
+    OutlineColor: #3a4a6a;
+    OutlineSize: 1;
+  
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // HEADER
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    Group #Header {
+      LayoutMode: Left;
+      Background: (Color: #0f1520);
+      Padding: (Top: 12, Bottom: 12, Left: 20, Right: 16);
+      Anchor: (Height: 50);
+      
+      Label #Title {
+        Text: "BANK";
+        Style: (FontSize: 18, TextColor: #FFD700, RenderBold: true);
+        FlexWeight: 1;
+        Anchor: (Vertical: 0);
+      }
+      
+      TextButton #CloseButton {
+        Text: "X";
+        Style: $E.@EcoButtonRedStyle;
+        Anchor: (Width: 36, Height: 36);
+      }
+    }
+    
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // WEALTH BAR
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    Group #WealthBar {
+      LayoutMode: Left;
+      Background: (Color: #0d1117);
+      Padding: (Top: 14, Bottom: 14, Left: 16, Right: 16);
+      Anchor: (Height: 72);
+      
+      // WALLET Column
+      Group #WalletColumn {
+        FlexWeight: 1;
+        LayoutMode: Top;
+        
+        Label #WalletLabel {
+          Text: "WALLET";
+          Style: (FontSize: 9, TextColor: #888888, HorizontalAlignment: Center, LetterSpacing: 1);
+          Anchor: (Bottom: 4);
+        }
+        
+        Label #PocketBalance {
+          Text: "$0";
+          Style: (FontSize: 20, TextColor: #FFD700, RenderBold: true, HorizontalAlignment: Center);
+        }
+      }
+      
+      // Divider
+      Group {
+        Background: (Color: #3a4a6a);
+        Anchor: (Width: 1, Height: 36, Vertical: 0, Left: 8, Right: 8);
+      }
+      
+      // BANK Column
+      Group #BankColumn {
+        FlexWeight: 1;
+        LayoutMode: Top;
+        
+        Label #BankLabel {
+          Text: "BANK";
+          Style: (FontSize: 9, TextColor: #888888, HorizontalAlignment: Center, LetterSpacing: 1);
+          Anchor: (Bottom: 4);
+        }
+        
+        Label #BankBalance {
+          Text: "$0";
+          Style: (FontSize: 20, TextColor: #32CD32, RenderBold: true, HorizontalAlignment: Center);
+        }
+      }
+      
+      // Divider
+      Group {
+        Background: (Color: #3a4a6a);
+        Anchor: (Width: 1, Height: 36, Vertical: 0, Left: 8, Right: 8);
+      }
+      
+      // TOTAL Column
+      Group #TotalColumn {
+        FlexWeight: 1;
+        LayoutMode: Top;
+        
+        Label #TotalLabel {
+          Text: "TOTAL";
+          Style: (FontSize: 9, TextColor: #888888, HorizontalAlignment: Center, LetterSpacing: 1);
+          Anchor: (Bottom: 4);
+        }
+        
+        Label #TotalWealth {
+          Text: "$0";
+          Style: (FontSize: 20, TextColor: #FFD700, RenderBold: true, HorizontalAlignment: Center);
+        }
+      }
+    }
+    
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // TAB BAR
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    Group #TabBar {
+      LayoutMode: Center;
+      Background: (Color: #0f1525);
+      Anchor: (Height: 44);
+      OutlineColor: #2a3a5a;
+      OutlineSize: 1;
+      
+      Group #TabButtonsRow {
+        LayoutMode: Left;
+        Anchor: (Width: 460, Height: 38, Vertical: 0);
+        
+        TextButton #TabWallet {
+          Text: "WALLET";
+          Style: $E.@EcoButtonStyle;
+          Anchor: (Width: 110, Height: 36, Right: 8);
+        }
+        
+        TextButton #TabDeposit {
+          Text: "DEPOSIT";
+          Style: $E.@EcoButtonStyle;
+          Anchor: (Width: 110, Height: 36, Right: 8);
+        }
+        
+        TextButton #TabWithdraw {
+          Text: "WITHDRAW";
+          Style: $E.@EcoButtonStyle;
+          Anchor: (Width: 110, Height: 36, Right: 8);
+        }
+        
+        TextButton #TabExchange {
+          Text: "EXCHANGE";
+          Style: $E.@EcoButtonStyle;
+          Anchor: (Width: 110, Height: 36);
+        }
+      }
+    }
+    
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    // TAB CONTENT AREA
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // WALLET TAB
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    Group #WalletContent {
+      LayoutMode: Top;
+      Padding: (Top: 16, Left: 16, Right: 16, Bottom: 16);
+      FlexWeight: 1;
+      
+      Label #CoinCollectionLabel {
+        Text: "YOUR COIN COLLECTION";
+        Style: (FontSize: 11, TextColor: #888888, LetterSpacing: 1, HorizontalAlignment: Center);
+        Anchor: (Bottom: 12);
+      }
+      
+      // Coin grid (3x2) - centered
+      Group #CoinGridWrapper {
+        LayoutMode: Center;
+        Anchor: (Height: 240, Bottom: 16);
+        
+        Group #CoinGrid {
+          LayoutMode: Top;
+          Anchor: (Width: 450, Height: 235);
+        
+        // Row 1 - Copper Iron Cobalt
+        Group #CoinRow1 {
+          LayoutMode: Left;
+          Anchor: (Height: 115);
+        }
+        
+        // Row 2 - Gold Mithril Adamantite
+        Group #CoinRow2 {
+          LayoutMode: Left;
+          Anchor: (Height: 115);
+        }
+      }
+      
+      }
+      // Quick Actions
+      Group #QuickActions {
+        LayoutMode: Top;
+        Background: (Color: #0f1525);
+        Padding: (Top: 12, Bottom: 12, Left: 16, Right: 16);
+        OutlineColor: #3a4a6a;
+        OutlineSize: 1;
+        
+        Label #QuickActionsLabel {
+          Text: "QUICK ACTIONS";
+          Style: (FontSize: 10, TextColor: #666666, LetterSpacing: 1);
+          Anchor: (Bottom: 10);
+        }
+        
+        Group #QuickActionButtons {
+          LayoutMode: Left;
+          Anchor: (Height: 36);
+          
+          TextButton #BtnDepositAll {
+            Text: "DEPOSIT ALL";
+            Style: $E.@EcoButtonGreenStyle;
+            FlexWeight: 1;
+            Anchor: (Height: 34, Right: 8);
+          }
+          
+          TextButton #BtnWithdrawAll {
+            Text: "WITHDRAW ALL";
+            Style: $E.@EcoButtonStyle;
+            FlexWeight: 1;
+            Anchor: (Height: 34, Right: 8);
+          }
+          
+          TextButton #BtnConsolidate {
+            Text: "CONSOLIDATE";
+            Style: $E.@EcoButtonAccentStyle;
+            FlexWeight: 1;
+            Anchor: (Height: 34);
+          }
+        }
+      }
+    }
+    
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // DEPOSIT TAB
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    Group #DepositContent {
+      LayoutMode: Top;
+      Padding: (Top: 20, Left: 24, Right: 24, Bottom: 20);
+      FlexWeight: 1;
+      Visible: false;
+      
+      // Flow indicator
+      Group #DepositFlow {
+        LayoutMode: Left;
+        Background: (Color: #0f1525);
+        Padding: (Top: 16, Bottom: 16, Left: 24, Right: 24);
+        Anchor: (Height: 80, Bottom: 20);
+        OutlineColor: #3a4a6a;
+        OutlineSize: 1;
+        
+        Group #DepositFrom {
+          LayoutMode: Top;
+          FlexWeight: 1;
+          
+          Label #DepositFromLabel { Text: "FROM POCKET"; Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center); }
+          Label #DepositFromValue { Text: "$0"; Style: (FontSize: 20, TextColor: #FFD700, RenderBold: true, HorizontalAlignment: Center); }
+        }
+        
+        Label {
+          Text: "-->";
+          Style: (FontSize: 24, TextColor: #32CD32, RenderBold: true);
+          Anchor: (Width: 60, Vertical: 0);
+        }
+        
+        Group #DepositTo {
+          LayoutMode: Top;
+          FlexWeight: 1;
+          
+          Label #DepositToLabel { Text: "TO BANK"; Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center); }
+          Label #DepositToValue { Text: "$0"; Style: (FontSize: 20, TextColor: #32CD32, RenderBold: true, HorizontalAlignment: Center); }
+        }
+      }
+      
+      // Amount section
+      Group #DepositAmountSection {
+        LayoutMode: Top;
+        Anchor: (Bottom: 16);
+        
+        Label #DepositAmountLabel { Text: "AMOUNT TO DEPOSIT"; Style: (FontSize: 10, TextColor: #888888, LetterSpacing: 1); Anchor: (Bottom: 8); }
+        
+        Group #DepositInputRow {
+          LayoutMode: Left;
+          Anchor: (Height: 40);
+          
+          Group #DepositInputBox {
+            Background: (Color: #0f1525);
+            Padding: (Left: 12, Right: 12, Top: 6, Bottom: 6);
+            FlexWeight: 1;
+            Anchor: (Height: 40, Right: 12);
+            OutlineColor: #3a4a6a;
+            OutlineSize: 1;
+            
+            TextField #DepositAmountInput {
+              Style: (FontSize: 16, TextColor: #ffffff);
+              FlexWeight: 1;
+            }
+          }
+          
+          TextButton #DepositQuick25 { Text: "25%"; Style: $E.@EcoButtonStyle; Anchor: (Width: 50, Height: 36, Right: 6); }
+          TextButton #DepositQuick50 { Text: "50%"; Style: $E.@EcoButtonStyle; Anchor: (Width: 50, Height: 36, Right: 6); }
+          TextButton #DepositQuick75 { Text: "75%"; Style: $E.@EcoButtonStyle; Anchor: (Width: 50, Height: 36, Right: 6); }
+          TextButton #DepositQuickMax { Text: "MAX"; Style: $E.@EcoButtonAccentStyle; Anchor: (Width: 50, Height: 36); }
+        }
+      }
+      
+      // Preview
+      Group #DepositPreview {
+        LayoutMode: Top;
+        Background: (Color: #0a1015);
+        Padding: (Top: 12, Bottom: 12, Left: 16, Right: 16);
+        Anchor: (Bottom: 20);
+        OutlineColor: #32CD32;
+        OutlineSize: 1;
+        Visible: false;
+        
+        Label #DepositPreviewText {
+          Text: "After deposit: Bank $X (+$Y)";
+          Style: (FontSize: 12, TextColor: #32CD32, HorizontalAlignment: Center);
+        }
+      }
+      
+      // Coin breakdown preview - shows which coins will be deposited
+      Group #DepositCoinPreview {
+        LayoutMode: Top;
+        Background: (Color: #0f1520);
+        Padding: (Top: 10, Bottom: 10, Left: 12, Right: 12);
+        Anchor: (Bottom: 16);
+        OutlineColor: #2a3a5a;
+        OutlineSize: 1;
+        Visible: false;
+        
+        Label #DepositCoinsLabel {
+          Text: "COINS TO DEPOSIT";
+          Style: (FontSize: 9, TextColor: #666666, LetterSpacing: 1, HorizontalAlignment: Center);
+          Anchor: (Bottom: 8);
+        }
+        
+        Group #DepositCoinRowWrapper {
+          LayoutMode: Center;
+          Anchor: (Height: 48);
+          
+          Group #DepositCoinRow {
+            LayoutMode: Left;
+            Anchor: (Height: 44);
+            
+            // Dynamic coin icons will be added here via append()
+          }
+        }
+      }
+      
+      Label { FlexWeight: 1; }
+      
+      // Confirm
+      TextButton #ConfirmDeposit {
+        Text: "CONFIRM DEPOSIT";
+        Style: $E.@EcoButtonGreenStyle;
+        Anchor: (Height: 48);
+      }
+    }
+    
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // WITHDRAW TAB
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    Group #WithdrawContent {
+      LayoutMode: Top;
+      Padding: (Top: 20, Left: 24, Right: 24, Bottom: 20);
+      FlexWeight: 1;
+      Visible: false;
+      
+      Group #WithdrawFlow {
+        LayoutMode: Left;
+        Background: (Color: #0f1525);
+        Padding: (Top: 16, Bottom: 16, Left: 24, Right: 24);
+        Anchor: (Height: 80, Bottom: 20);
+        OutlineColor: #3a4a6a;
+        OutlineSize: 1;
+        
+        Group #WithdrawFrom {
+          LayoutMode: Top;
+          FlexWeight: 1;
+          
+          Label #WithdrawFromLabel { Text: "FROM BANK"; Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center); }
+          Label #WithdrawFromValue { Text: "$0"; Style: (FontSize: 20, TextColor: #32CD32, RenderBold: true, HorizontalAlignment: Center); }
+        }
+        
+        Label {
+          Text: "-->";
+          Style: (FontSize: 24, TextColor: #FFD700, RenderBold: true);
+          Anchor: (Width: 60, Vertical: 0);
+        }
+        
+        Group #WithdrawTo {
+          LayoutMode: Top;
+          FlexWeight: 1;
+          
+          Label #WithdrawToLabel { Text: "TO POCKET"; Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center); }
+          Label #WithdrawToValue { Text: "$0"; Style: (FontSize: 20, TextColor: #FFD700, RenderBold: true, HorizontalAlignment: Center); }
+        }
+      }
+      
+      Group #WithdrawAmountSection {
+        LayoutMode: Top;
+        Anchor: (Bottom: 16);
+        
+        Label #WithdrawAmountLabel { Text: "AMOUNT TO WITHDRAW"; Style: (FontSize: 10, TextColor: #888888, LetterSpacing: 1); Anchor: (Bottom: 8); }
+        
+        Group #WithdrawInputRow {
+          LayoutMode: Left;
+          Anchor: (Height: 40);
+          
+          Group #WithdrawInputBox {
+            Background: (Color: #0f1525);
+            Padding: (Left: 12, Right: 12, Top: 6, Bottom: 6);
+            FlexWeight: 1;
+            Anchor: (Height: 40, Right: 12);
+            OutlineColor: #3a4a6a;
+            OutlineSize: 1;
+            
+            TextField #WithdrawAmountInput {
+              Style: (FontSize: 16, TextColor: #ffffff);
+              FlexWeight: 1;
+            }
+          }
+          
+          TextButton #WithdrawQuick25 { Text: "25%"; Style: $E.@EcoButtonStyle; Anchor: (Width: 50, Height: 36, Right: 6); }
+          TextButton #WithdrawQuick50 { Text: "50%"; Style: $E.@EcoButtonStyle; Anchor: (Width: 50, Height: 36, Right: 6); }
+          TextButton #WithdrawQuick75 { Text: "75%"; Style: $E.@EcoButtonStyle; Anchor: (Width: 50, Height: 36, Right: 6); }
+          TextButton #WithdrawQuickMax { Text: "MAX"; Style: $E.@EcoButtonAccentStyle; Anchor: (Width: 50, Height: 36); }
+        }
+      }
+      
+      Group #WithdrawPreview {
+        LayoutMode: Top;
+        Background: (Color: #0a1015);
+        Padding: (Top: 12, Bottom: 12, Left: 16, Right: 16);
+        Anchor: (Bottom: 20);
+        OutlineColor: #5599FF;
+        OutlineSize: 1;
+        Visible: false;
+        
+        Label #WithdrawPreviewText {
+          Text: "After withdraw: Pocket $X (+$Y)";
+          Style: (FontSize: 12, TextColor: #5599FF, HorizontalAlignment: Center);
+        }
+      }
+      
+      // Coin breakdown preview - shows which coins will be received
+      Group #WithdrawCoinPreview {
+        LayoutMode: Top;
+        Background: (Color: #0f1520);
+        Padding: (Top: 10, Bottom: 10, Left: 12, Right: 12);
+        Anchor: (Bottom: 16);
+        OutlineColor: #2a3a5a;
+        OutlineSize: 1;
+        Visible: false;
+        
+        Label #WithdrawCoinsLabel {
+          Text: "COINS TO RECEIVE";
+          Style: (FontSize: 9, TextColor: #666666, LetterSpacing: 1, HorizontalAlignment: Center);
+          Anchor: (Bottom: 8);
+        }
+        
+        Group #WithdrawCoinRowWrapper {
+          LayoutMode: Center;
+          Anchor: (Height: 48);
+          
+          Group #WithdrawCoinRow {
+            LayoutMode: Left;
+            Anchor: (Height: 44);
+            
+            // Dynamic coin icons will be added here via append()
+          }
+        }
+      }
+      
+      Label { FlexWeight: 1; }
+      
+      TextButton #ConfirmWithdraw {
+        Text: "CONFIRM WITHDRAW";
+        Style: $E.@EcoButtonStyle;
+        Anchor: (Height: 48);
+      }
+    }
+    
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // EXCHANGE TAB
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    Group #ExchangeContent {
+      LayoutMode: Top;
+      Padding: (Top: 16, Left: 24, Right: 24, Bottom: 16);
+      FlexWeight: 1;
+      Visible: false;
+      
+      // Exchange visual - centered
+      Group #ExchangeVisualWrapper {
+        LayoutMode: Center;
+        Anchor: (Height: 175, Bottom: 12);
+        
+        Group #ExchangeVisual {
+          LayoutMode: Left;
+          Anchor: (Width: 400, Height: 170);
+          
+          // FROM coin selector
+          Group #ExchangeFrom {
+            LayoutMode: Top;
+            Background: (Color: #0f1525);
+            Padding: (Top: 10, Bottom: 10, Left: 10, Right: 10);
+            Anchor: (Width: 170, Right: 8);
+            OutlineColor: #32CD32;
+            OutlineSize: 1;
+            
+            Label #ExchangeFromLabel { Text: "EXCHANGE FROM"; Style: (FontSize: 9, TextColor: #32CD32, HorizontalAlignment: Center, LetterSpacing: 1); Anchor: (Bottom: 6); }
+            
+            Group #FromIconWrapper {
+              LayoutMode: Center;
+              Anchor: (Height: 56);
+              
+              ItemIcon #FromCoinIcon {
+                Anchor: (Width: 52, Height: 52);
+              }
+            }
+            
+            Label #FromCoinName {
+              Text: "Copper";
+              Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+              Anchor: (Bottom: 3);
+            }
+            
+            Label #FromCoinHave {
+              Text: "You have: 0";
+              Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center);
+              Anchor: (Bottom: 6);
+            }
+            
+            Group #FromNavButtons {
+              LayoutMode: Center;
+              Anchor: (Height: 26);
+              
+              Group {
+                LayoutMode: Left;
+                Anchor: (Width: 90);
+                
+                TextButton #FromPrev { Text: "<"; Style: $E.@EcoButtonStyle; Anchor: (Width: 40, Height: 24, Right: 8); }
+                TextButton #FromNext { Text: ">"; Style: $E.@EcoButtonStyle; Anchor: (Width: 40, Height: 24); }
+              }
+            }
+          }
+          
+          // Arrow
+          Group #ExchangeArrow {
+            Anchor: (Width: 50, Vertical: 0);
+            LayoutMode: Center;
+            
+            Label {
+              Text: "->";
+              Style: (FontSize: 24, TextColor: #FFD700, RenderBold: true);
+            }
+          }
+          
+          // TO coin selector
+          Group #ExchangeTo {
+            LayoutMode: Top;
+            Background: (Color: #0f1525);
+            Padding: (Top: 10, Bottom: 10, Left: 10, Right: 10);
+            Anchor: (Width: 170, Left: 8);
+            OutlineColor: #FFD700;
+            OutlineSize: 1;
+            
+            Label #ExchangeToLabel { Text: "EXCHANGE TO"; Style: (FontSize: 9, TextColor: #FFD700, HorizontalAlignment: Center, LetterSpacing: 1); Anchor: (Bottom: 6); }
+            
+            Group #ToIconWrapper {
+              LayoutMode: Center;
+              Anchor: (Height: 56);
+              
+              ItemIcon #ToCoinIcon {
+                Anchor: (Width: 52, Height: 52);
+              }
+            }
+            
+            Label #ToCoinName {
+              Text: "Iron";
+              Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true, HorizontalAlignment: Center);
+              Anchor: (Bottom: 3);
+            }
+            
+            Label #ToCoinHave {
+              Text: "You have: 0";
+              Style: (FontSize: 10, TextColor: #888888, HorizontalAlignment: Center);
+              Anchor: (Bottom: 6);
+            }
+            
+            Group #ToNavButtons {
+              LayoutMode: Center;
+              Anchor: (Height: 26);
+              
+              Group {
+                LayoutMode: Left;
+                Anchor: (Width: 90);
+                
+                TextButton #ToPrev { Text: "<"; Style: $E.@EcoButtonStyle; Anchor: (Width: 40, Height: 24, Right: 8); }
+                TextButton #ToNext { Text: ">"; Style: $E.@EcoButtonStyle; Anchor: (Width: 40, Height: 24); }
+              }
+          }
+        }
+      }
+      
+      }
+      // Exchange rate
+      Label #ExchangeRate {
+        Text: "RATE: 10 Copper = 1 Iron";
+        Style: (FontSize: 11, TextColor: #888888, HorizontalAlignment: Center);
+        Anchor: (Bottom: 12);
+      }
+      
+      // Amount input - centered
+      Group #ExchangeAmountWrapper {
+        LayoutMode: Center;
+        Anchor: (Height: 50, Bottom: 12);
+        
+        Group #ExchangeAmountSection {
+          LayoutMode: Left;
+          Anchor: (Width: 380, Height: 44);
+        
+        Label #ExchangeAmountLabel { Text: "AMOUNT:"; Style: (FontSize: 11, TextColor: #888888, VerticalAlignment: Center); Anchor: (Width: 70, Vertical: 0); }
+          
+          Group #ExchangeInputBox {
+            Background: (Color: #0f1525);
+            Padding: (Left: 12, Right: 12, Top: 6, Bottom: 6);
+            Anchor: (Width: 150, Height: 38, Right: 12);
+            OutlineColor: #3a4a6a;
+            OutlineSize: 1;
+            
+            TextField #ExchangeAmountInput {
+              Style: (FontSize: 16, TextColor: #ffffff);
+              FlexWeight: 1;
+            }
+          }
+          
+          TextButton #ExchangeQuickMax { Text: "MAX POSSIBLE"; Style: $E.@EcoButtonAccentStyle; Anchor: (Width: 130, Height: 36); }
+        }
+      
+      }
+      // Result preview
+      Group #ExchangeResult {
+        LayoutMode: Top;
+        Background: (Color: #0a1015);
+        Padding: (Top: 14, Bottom: 14, Left: 20, Right: 20);
+        Anchor: (Bottom: 16);
+        OutlineColor: #FFD700;
+        OutlineSize: 1;
+        
+        Label #ExchangeResultText {
+          Text: "USE: 10 Copper  -->  GET: 1 Iron";
+          Style: (FontSize: 14, TextColor: #FFD700, RenderBold: true, HorizontalAlignment: Center);
+        }
+      }
+      
+      Label { FlexWeight: 1; }
+      
+      TextButton #ConfirmExchange {
+        Text: "CONFIRM EXCHANGE";
+        Style: $E.@EcoButtonAccentStyle;
+        Anchor: (Height: 48);
+      }
+    }
+  }
+}

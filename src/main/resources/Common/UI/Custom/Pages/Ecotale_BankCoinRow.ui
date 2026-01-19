@@ -1,0 +1,38 @@
+// Coin row entry for Bank Exchange screen
+// Used for displaying coin inventory with item icons
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Height: 36, Bottom: 4);
+  Background: (Color: #1a2a4a);
+  Padding: (Left: 8, Right: 8, Top: 4, Bottom: 4);
+  OutlineColor: #3a4a6a;
+  OutlineSize: 1;
+  
+  // Coin icon
+  ItemIcon #CoinIcon {
+    Anchor: (Width: 28, Height: 28, Vertical: 0);
+  }
+  
+  // Coin name
+  Label #CoinName {
+    Text: "Copper";
+    Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true);
+    FlexWeight: 1;
+    Anchor: (Vertical: 0, Left: 8);
+  }
+  
+  // Value per unit
+  Label #CoinValue {
+    Text: "=1";
+    Style: (FontSize: 10, TextColor: #888888);
+    Anchor: (Width: 80, Vertical: 0);
+  }
+  
+  // Count owned
+  Label #CoinCount {
+    Text: "x0";
+    Style: (FontSize: 12, TextColor: #32CD32, RenderBold: true);
+    Anchor: (Width: 50, Vertical: 0);
+  }
+}

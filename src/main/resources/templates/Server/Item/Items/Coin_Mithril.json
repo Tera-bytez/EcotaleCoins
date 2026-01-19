@@ -1,0 +1,38 @@
+{
+  "PlayerAnimationsId": "Item",
+  "Icon": "Icons/Items/Coins/Coin_Mithril.png",
+  "MaxStack": 999,
+  "Categories": ["Currency", "Ecotale"],
+  "DropOnDeath": true,
+  "TranslationProperties": {
+    "Name": "ecotale.items.coin_mithril.name",
+    "Description": "ecotale.items.coin_mithril.description"
+  },
+  "IconProperties": {
+    "Scale": 1.5,
+    "Rotation": [0, 0, 0],
+    "Translation": [0, 0]
+  },
+  "BlockType": {
+    "BlockParticleSetId": "Stone",
+    "BlockSoundSetId": "Clay_Pot_Small",
+    "CustomModel": "Items/Currency/Coins/Coin.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Items/Currency/Coins/Coin_Mithril.png",
+        "Weight": 1
+      }
+    ],
+    "DrawType": "Model",
+    "Flags": {},
+    "HitboxType": "Beam",
+    "Material": "Solid",
+    "Opacity": "Semitransparent",
+    "VariantRotation": "NESW",
+    "ParticleColor": "#C0E8FF",
+    "CustomModelScale": 0.3
+  },
+  "Scale": 1.0,
+  "ItemSoundSetId": "ISS_Items_Metal"
+}
+
