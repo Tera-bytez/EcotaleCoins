@@ -50,9 +50,12 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     private Tab currentTab = Tab.WALLET;
     private String amountInput = "";
     
-    // Exchange coin indices (0-5 for CoinType values)
-    private int fromCoinIndex = 0;  // Default: Copper
-    private int toCoinIndex = 1;    // Default: Iron
+    // Exchange coin indices (0 to enabledTypes.length - 1)
+    private int fromCoinIndex = 0;  // Default: First enabled (e.g., Copper)
+    private int toCoinIndex = 1;    // Default: Second enabled (e.g., Iron)
+    
+    // Enabled coin types (sorted ascending by value)
+    private final CoinType[] enabledTypes;
     
     // Security: Track last operation time to prevent spam
     private long lastClickTime = 0;
@@ -60,6 +63,7 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     public BankGui(@NonNullDecl PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, BankGuiData.CODEC);
         this.playerRef = playerRef;
+        this.enabledTypes = CoinType.valuesAscending();
     }
     
     // Per-player translation helpers (use stored playerRef)
@@ -187,8 +191,8 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     }
     
     private void updateExchangePreview(UICommandBuilder cmd, Player player) {
-        CoinType fromType = CoinType.values()[fromCoinIndex];
-        CoinType toType = CoinType.values()[toCoinIndex];
+        CoinType fromType = enabledTypes[fromCoinIndex];
+        CoinType toType = enabledTypes[toCoinIndex];
         
         long inputAmount = parseAmountSimple(amountInput);
         int haveFrom = CoinManager.getBreakdown(player).getOrDefault(fromType, 0);
@@ -250,8 +254,8 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
      * 2. Available inventory slots for result
      */
     private int calculateSmartMax(Player player) {
-        CoinType fromType = CoinType.values()[fromCoinIndex];
-        CoinType toType = CoinType.values()[toCoinIndex];
+        CoinType fromType = enabledTypes[fromCoinIndex];
+        CoinType toType = enabledTypes[toCoinIndex];
         
         int haveFrom = CoinManager.getBreakdown(player).getOrDefault(fromType, 0);
         if (haveFrom == 0) return 0;
@@ -297,7 +301,7 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     private void buildWalletTab(UICommandBuilder cmd, UIEventBuilder events, Player player,
                                  long bankBalance, long pocketBalance, String symbol) {
         Map<CoinType, Integer> coinBreakdown = CoinManager.getBreakdown(player);
-        CoinType[] types = CoinType.values();
+        CoinType[] types = enabledTypes;
         
         // Build coin grid (3x2)
         cmd.clear("#CoinRow1");
@@ -420,14 +424,13 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     // EXCHANGE TAB
     // ═══════════════════════════════════════════════════════════════════
     private void buildExchangeTab(UICommandBuilder cmd, UIEventBuilder events, Player player) {
-        CoinType[] types = CoinType.values();
         
         // Security: Validate indices
-        fromCoinIndex = Math.max(0, Math.min(fromCoinIndex, types.length - 1));
-        toCoinIndex = Math.max(0, Math.min(toCoinIndex, types.length - 1));
+        fromCoinIndex = Math.max(0, Math.min(fromCoinIndex, enabledTypes.length - 1));
+        toCoinIndex = Math.max(0, Math.min(toCoinIndex, enabledTypes.length - 1));
         
-        CoinType fromType = types[fromCoinIndex];
-        CoinType toType = types[toCoinIndex];
+        CoinType fromType = enabledTypes[fromCoinIndex];
+        CoinType toType = enabledTypes[toCoinIndex];
         
         Map<CoinType, Integer> coinBreakdown = CoinManager.getBreakdown(player);
         
@@ -700,9 +703,8 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     }
     
     private void executeExchange(Player player) {
-        CoinType[] types = CoinType.values();
-        CoinType fromType = types[fromCoinIndex];
-        CoinType toType = types[toCoinIndex];
+        CoinType fromType = enabledTypes[fromCoinIndex];
+        CoinType toType = enabledTypes[toCoinIndex];
         
         long amount = parseAmountSimple(amountInput);
         if (amount <= 0 || amount > Integer.MAX_VALUE) {
@@ -753,7 +755,7 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     }
     
     private int cycleIndex(int current, int delta) {
-        int length = CoinType.values().length;
+        int length = enabledTypes.length;
         return (current + delta + length) % length;
     }
     
@@ -764,8 +766,8 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     private boolean isExchangePossible(int fromIndex, int toIndex) {
         if (fromIndex == toIndex) return false;
         
-        CoinType fromType = CoinType.values()[fromIndex];
-        CoinType toType = CoinType.values()[toIndex];
+        CoinType fromType = enabledTypes[fromIndex];
+        CoinType toType = enabledTypes[toIndex];
         
         // Only check when converting DOWN (to lower value coins)
         if (fromType.getValue() <= toType.getValue()) return true;
@@ -785,7 +787,7 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
      * Cycle to next valid TO coin index, skipping impossible exchanges.
      */
     private int cycleToIndex(int current, int delta) {
-        int length = CoinType.values().length;
+        int length = enabledTypes.length;
         int attempts = 0;
         int newIndex = current;
         

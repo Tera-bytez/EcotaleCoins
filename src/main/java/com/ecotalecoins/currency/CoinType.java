@@ -1,46 +1,70 @@
 package com.ecotalecoins.currency;
 
+import com.ecotalecoins.Main;
+import com.ecotalecoins.config.CoinConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Coin types based on in-game ores.
- * Values are in base units (1 Copper = 1 unit).
+ * Values are in base units.
  */
 public enum CoinType {
-    COPPER("Coin_Copper", 1, "Copper"),
-    IRON("Coin_Iron", 10, "Iron"),
-    COBALT("Coin_Cobalt", 100, "Cobalt"),
-    GOLD("Coin_Gold", 1_000, "Gold"),
-    MITHRIL("Coin_Mithril", 10_000, "Mithril"),
-    ADAMANTITE("Coin_Adamantite", 100_000, "Adamantite");
+    COPPER("copper"),
+    IRON("iron"),
+    COBALT("cobalt"),
+    GOLD("gold"),
+    MITHRIL("mithril"),
+    ADAMANTITE("adamantite");
 
-    private final String itemId;
-    private final long value;
-    private final String displayName;
+    private final String configKey;
 
-    CoinType(String itemId, long value, String displayName) {
-        this.itemId = itemId;
-        this.value = value;
-        this.displayName = displayName;
+    CoinType(String configKey) {
+        this.configKey = configKey;
     }
 
+    /**
+     * Get the item ID for this coin type.
+     */
     public String getItemId() {
-        return itemId;
+        CoinConfig.CoinTypeConfig config = getConfig();
+        return config != null ? config.itemId : "Coin_" + capitalize(configKey);
     }
 
+    /**
+     * Get the value of this coin type.
+     */
     public long getValue() {
-        return value;
+        CoinConfig.CoinTypeConfig config = getConfig();
+        return config != null ? config.value : 1L;
     }
 
+    /**
+     * Get the display name for this coin type.
+     */
     public String getDisplayName() {
-        return displayName;
+        CoinConfig.CoinTypeConfig config = getConfig();
+        return config != null ? config.displayName : capitalize(configKey);
+    }
+    
+    /**
+     * Check if this coin type is enabled in config.
+     */
+    public boolean isEnabled() {
+        CoinConfig.CoinTypeConfig config = getConfig();
+        return config != null && config.enabled;
     }
 
     /**
      * Find coin type by item ID.
-     * @return CoinType or null if not a valid coin
+     * Only returns enabled coins.
+     * @return CoinType or null if not a valid/enabled coin
      */
     public static CoinType fromItemId(String itemId) {
         for (CoinType type : values()) {
-            if (type.itemId.equals(itemId)) {
+            if (type.isEnabled() && type.getItemId().equals(itemId)) {
                 return type;
             }
         }
@@ -48,21 +72,84 @@ public enum CoinType {
     }
 
     /**
-     * Check if an item ID is a valid coin.
+     * Check if an item ID is a valid enabled coin.
      */
     public static boolean isCoin(String itemId) {
         return fromItemId(itemId) != null;
     }
 
     /**
-     * Get all coin types sorted by value descending (for consolidation).
+     * Get all enabled coin types sorted by value descending.
+     * This is used for consolidation and giving change.
      */
     public static CoinType[] valuesDescending() {
-        CoinType[] types = values();
-        CoinType[] result = new CoinType[types.length];
-        for (int i = 0; i < types.length; i++) {
-            result[i] = types[types.length - 1 - i];
+        List<CoinType> enabled = new ArrayList<>();
+        
+        for (CoinType type : values()) {
+            if (type.isEnabled()) {
+                enabled.add(type);
+            }
         }
-        return result;
+        
+        // Sort by value descending
+        enabled.sort((a, b) -> Long.compare(b.getValue(), a.getValue()));
+        
+        return enabled.toArray(new CoinType[0]);
+    }
+    
+    /**
+     * Get all enabled coin types sorted by value ascending.
+     */
+    public static CoinType[] valuesAscending() {
+        List<CoinType> enabled = new ArrayList<>();
+        
+        for (CoinType type : values()) {
+            if (type.isEnabled()) {
+                enabled.add(type);
+            }
+        }
+        
+        // Sort by value ascending
+        enabled.sort((a, b) -> Long.compare(a.getValue(), b.getValue()));
+        
+        return enabled.toArray(new CoinType[0]);
+    }
+    
+    /**
+     * Get all enabled coin types (no sorting).
+     */
+    public static CoinType[] enabledValues() {
+        List<CoinType> enabled = new ArrayList<>();
+        
+        for (CoinType type : values()) {
+            if (type.isEnabled()) {
+                enabled.add(type);
+            }
+        }
+        
+        return enabled.toArray(new CoinType[0]);
+    }
+    
+    /**
+     * Get configuration for this coin type from the config manager.
+     */
+    private CoinConfig.CoinTypeConfig getConfig() {
+        Main plugin = Main.getInstance();
+        if (plugin == null) {
+            // Fallback during initialization
+            return null;
+        }
+        
+        CoinConfig config = plugin.getCoinConfig();
+        if (config == null) {
+            return null;
+        }
+        
+        return config.getCoinConfig(configKey);
+    }
+    
+    private static String capitalize(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 }

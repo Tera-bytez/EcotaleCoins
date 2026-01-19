@@ -2,6 +2,7 @@ package com.ecotalecoins;
 
 import com.ecotale.api.EcotaleAPI;
 import com.ecotalecoins.commands.BankCommand;
+import com.ecotalecoins.config.CoinConfig;
 import com.ecotalecoins.currency.CoinAssetManager;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.ShutdownReason;
@@ -9,6 +10,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
+import java.nio.file.Path;
 import java.util.logging.Level;
 
 /**
@@ -19,6 +21,7 @@ import java.util.logging.Level;
  * - Bank vault for safe storage
  * - Coin drops from mobs and mining
  * - Multiple coin denominations
+ * - Configurable coin values and enable/disable per type
  * 
  * @author Ecotale
  * @since 1.0.0
@@ -26,6 +29,7 @@ import java.util.logging.Level;
 public class Main extends JavaPlugin {
     
     private static Main instance;
+    private CoinConfig coinConfig;
     private CoinAssetManager coinAssetManager;
     private EcotaleCoinsProviderImpl coinsProvider;
     
@@ -44,9 +48,24 @@ public class Main extends JavaPlugin {
             return;
         }
         
+        // Load configuration FIRST (before anything else)
+        Path configPath = this.getDataDirectory().resolve("config.json");
+        this.coinConfig = new CoinConfig(configPath, this.getLogger());
+        
+        if (!this.coinConfig.load()) {
+            this.getLogger().at(Level.SEVERE).log("[EcotaleCoins] Failed to load config! Disabling.");
+            return;
+        }
+        
+        // Log enabled coins
+        this.getLogger().at(Level.INFO).log("[EcotaleCoins] Enabled coins:");
+        this.coinConfig.getEnabledCoinsInOrder().forEach((name, config) -> {
+            this.getLogger().at(Level.INFO).log("  - " + config.displayName + ": " + config.value + " base units");
+        });
+        
         // Initialize asset pack
-        java.nio.file.Path modsFolder = this.getDataDirectory().getParent();
-        java.nio.file.Path assetPackPath = modsFolder.resolve("Ecotale_EcotaleCoins");
+        Path modsFolder = this.getDataDirectory().getParent();
+        Path assetPackPath = modsFolder.resolve("Ecotale_EcotaleCoins");
         
         this.coinAssetManager = new CoinAssetManager(assetPackPath, this.getLogger());
         this.coinAssetManager.initialize();
@@ -90,6 +109,7 @@ public class Main extends JavaPlugin {
                 this.getLogger().at(Level.INFO).log("");
                 this.getLogger().at(Level.INFO).log("[EcotaleCoins] First-time setup complete!");
                 this.getLogger().at(Level.INFO).log("[EcotaleCoins] Asset pack: mods/Ecotale_EcotaleCoins/");
+                this.getLogger().at(Level.INFO).log("[EcotaleCoins] Config: mods/Ecotale_EcotaleCoins/config.json");
                 this.getLogger().at(Level.INFO).log("[EcotaleCoins] Restarting in 5 seconds...");
                 this.getLogger().at(Level.INFO).log("");
                 
@@ -107,6 +127,10 @@ public class Main extends JavaPlugin {
     
     public static Main getInstance() {
         return instance;
+    }
+    
+    public CoinConfig getCoinConfig() {
+        return coinConfig;
     }
     
     public CoinAssetManager getCoinAssetManager() {
