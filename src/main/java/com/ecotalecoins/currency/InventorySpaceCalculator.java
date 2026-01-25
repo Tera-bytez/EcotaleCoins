@@ -28,7 +28,7 @@ public final class InventorySpaceCalculator {
      * NOTE: Only analyzes storage, not hotbar, to match giveSpecificCoins behavior.
      */
     public static Map<CoinType, CoinStackInfo> analyzeInventory(@Nonnull Player player) {
-        Map<CoinType, CoinStackInfo> result = new EnumMap<>(CoinType.class);
+        Map<CoinType, CoinStackInfo> result = new java.util.LinkedHashMap<>();
 
         for (CoinType type : CoinType.values()) {
             result.put(type, CoinStackInfo.empty(type));

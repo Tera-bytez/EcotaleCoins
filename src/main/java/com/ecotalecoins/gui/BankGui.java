@@ -925,14 +925,10 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
     
     /** Get translated coin names */
     private String getCoinName(CoinType type) {
-        return switch (type) {
-            case COPPER -> t("coins.copper", "Copper");
-            case IRON -> t("coins.iron", "Iron");
-            case COBALT -> t("coins.cobalt", "Cobalt");
-            case GOLD -> t("coins.gold", "Gold");
-            case MITHRIL -> t("coins.mithril", "Mithril");
-            case ADAMANTITE -> t("coins.adamantite", "Adamantite");
-        };
+        // Use the display name from config
+        // Fallback to translation key based on tier name for backwards compatibility
+        String tierName = type.name().toLowerCase();
+        return t("coins." + tierName, type.getDisplayName());
     }
     
     private String formatLong(long value) {

@@ -147,7 +147,7 @@ public class EcoTestCommand extends AbstractAsyncCommand {
                     
                     // Test 6: Specific Coin Type Operations
                     try {
-                        CoinType testType = CoinType.COPPER;
+                        CoinType testType = CoinType.byName("COPPER");
                         int beforeCount = CoinManager.getBreakdown(player).getOrDefault(testType, 0);
                         
                         boolean giveSpecific = CoinManager.giveSpecificCoins(player, testType, 10);
@@ -183,15 +183,19 @@ public class EcoTestCommand extends AbstractAsyncCommand {
                     
                     // Test 8: Coin Value Calculation
                     try {
-                        long copperValue = CoinType.COPPER.getValue();
-                        long goldValue = CoinType.GOLD.getValue();
-                        long adamantiteValue = CoinType.ADAMANTITE.getValue();
-                        
-                        if (copperValue == 1L && goldValue == 1000L && adamantiteValue == 1000000L) {
-                            player.sendMessage(Message.raw("[8] Coin Values: PASS - Cu=1, Au=1K, Ad=1M").color(Color.GREEN));
+                        CoinType copper = CoinType.byName("COPPER");
+                        CoinType gold = CoinType.byName("GOLD");
+                        CoinType adamantite = CoinType.byName("ADAMANTITE");
+
+                        if (copper != null && gold != null && adamantite != null) {
+                            long copperValue = copper.getValue();
+                            long goldValue = gold.getValue();
+                            long adamantiteValue = adamantite.getValue();
+
+                            player.sendMessage(Message.raw("[8] Coin Values: PASS - Cu=" + copperValue + ", Au=" + goldValue + ", Ad=" + adamantiteValue).color(Color.GREEN));
                             passed++;
                         } else {
-                            player.sendMessage(Message.raw("[8] Coin Values: FAIL - Unexpected values").color(Color.RED));
+                            player.sendMessage(Message.raw("[8] Coin Values: FAIL - Missing coin types").color(Color.RED));
                             failed++;
                         }
                     } catch (Exception e) {
