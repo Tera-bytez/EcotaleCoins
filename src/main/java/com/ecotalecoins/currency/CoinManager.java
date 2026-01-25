@@ -142,17 +142,23 @@ public class CoinManager {
                     container.removeItemStack(stack);
                     remaining -= stackValue;
                 } else {
-                    int coinsToRemove = (int) Math.ceil((double) remaining / type.getValue());
-                    int newQuantity = quantity - coinsToRemove;
+                    // Only take what we can afford with this denomination (no overpaying)
+                    int coinsToRemove = (int) (remaining / type.getValue());
 
-                    if (newQuantity > 0) {
-                        container.setItemStackForSlot(i, stack.withQuantity(newQuantity));
-                    } else {
-                        container.removeItemStack(stack);
+                    // Only proceed if we can actually remove coins
+                    if (coinsToRemove > 0) {
+                        int newQuantity = quantity - coinsToRemove;
+
+                        if (newQuantity > 0) {
+                            container.setItemStackForSlot(i, stack.withQuantity(newQuantity));
+                        } else {
+                            container.removeItemStack(stack);
+                        }
+
+                        long actualValueRemoved = coinsToRemove * type.getValue();
+                        remaining -= actualValueRemoved;
                     }
-
-                    long actualValueRemoved = coinsToRemove * type.getValue();
-                    remaining -= actualValueRemoved;
+                    // If coinsToRemove is 0, continue to next slot/type to make exact change
                 }
 
                 if (remaining <= 0) break;
