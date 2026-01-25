@@ -396,12 +396,9 @@ public class SecureTransaction {
             );
             transactionLog.put(txHash, record);
             
-                        // Take coins - this may partially succeed if player manipulates inventory
-            boolean takenFully = CoinManager.takeCoins(player, requestedAmount);
-            
-            // Calculate ACTUAL amount taken by comparing balances
-            long balanceAfter = CoinManager.countCoins(player);
-            long actuallyTaken = balanceBefore - balanceAfter;
+                        // Take coins for deposit - rounds up if exact change can't be made
+            // This returns the ACTUAL amount taken (may be more than requested)
+            long actuallyTaken = CoinManager.takeCoinsForDeposit(player, requestedAmount);
             
             if (actuallyTaken <= 0) {
                 updateTransactionStatus(txHash, "REJECTED", "Could not take any coins");
@@ -412,19 +409,25 @@ public class SecureTransaction {
             EcotaleAPI.deposit(playerUuid, (double) actuallyTaken, "TX_DEPOSIT:" + txHash);
             
             // Update transaction status
-            if (takenFully && actuallyTaken == requestedAmount) {
-                updateTransactionStatus(txHash, "COMMITTED", null);
+            updateTransactionStatus(txHash, "COMMITTED", null);
+
+            if (actuallyTaken == requestedAmount) {
+                // Exact amount deposited
                 return TransactionResult.success(
                     t("transaction.success.deposit", "Deposited {0} to bank", formatValue(actuallyTaken)),
                     txHash
                 );
-            } else {
-                // Partial deposit - inform player
-                updateTransactionStatus(txHash, "PARTIAL_COMMIT", 
-                    "Requested " + requestedAmount + " but only " + actuallyTaken + " was available");
-                
+            } else if (actuallyTaken > requestedAmount) {
+                // Rounded up (couldn't make exact change)
                 return TransactionResult.success(
-                    t("transaction.success.deposit", "Deposited {0} to bank (partial)", formatValue(actuallyTaken)),
+                    t("transaction.success.deposit.rounded", "Deposited {0} to bank (rounded up from {1})",
+                        formatValue(actuallyTaken), formatValue(requestedAmount)),
+                    txHash
+                );
+            } else {
+                // Less than requested (shouldn't happen with new logic, but handle gracefully)
+                return TransactionResult.success(
+                    t("transaction.success.deposit.partial", "Deposited {0} to bank", formatValue(actuallyTaken)),
                     txHash
                 );
             }

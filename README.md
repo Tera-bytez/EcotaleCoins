@@ -1,56 +1,109 @@
-# EcotaleCoins - Physical Currency for Hytale
+# EcotaleCoins - Configurable Physical Currency for Hytale
 
-Physical coin items and banking system for the Ecotale economy. Players collect coins in the world and store them in the bank.
+**Config-driven physical currency system.** Define which items are currency and their values in a simple JSON config file - no code changes needed!
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Author](https://img.shields.io/badge/author-Tera--bytez-purple)
+![Version](https://img.shields.io/badge/version-2.0.0--configurable-blue)
+![Modified By](https://img.shields.io/badge/modified--by-mad--001-purple)
 ![Requires](https://img.shields.io/badge/requires-Ecotale-green)
 
-## Screenshots
+## What's Different?
 
-### Bank GUI
-![Bank GUI](docs/screenshots/bank.gif)
-
-### Physical Coins
-![Physical Coins](docs/screenshots/coins.gif)
+This is a **modified fork** with a powerful configuration system:
+- ✅ **JSON configuration** - Define currency items in `EcotaleCoins.json`
+- ✅ **No recompilation** - Change currency types without editing code
+- ✅ **Flexible values** - Set custom conversion rates between tiers
+- ✅ **Default: Vanilla ingots** - Uses Hytale's metal bars out of the box
+- ✅ **Easy customization** - Switch to gems, custom items, or anything else
 
 ## Features
 
-### Physical Currency
-- **6 coin denominations** - COPPER, IRON, COBALT, GOLD, MITHRIL, ADAMANTITE
-- **World drops** - Coins drop from mobs when EcotaleJobs is installed
+### Vanilla Ingot Currency
+- **6 metal tiers** - COPPER, IRON, COBALT, GOLD, MITHRIL, ADAMANTITE bars
+- **1:10 conversion rates** - Each tier worth 10x the previous (same as original)
+- **Uses vanilla items** - `Ingredient_Bar_*` items already in the game
 - **Optimal breakdown** - Large values auto-convert to highest denominations
 
-
 ### Bank System
-- **Secure storage** - Bank balance separate from inventory coins
-- **Deposit/Withdraw** - Convert between bank and physical coins
-- **Exchange** - Convert between coin denominations
-- **Consolidate** - Combine small coins into larger ones
+- **Secure storage** - Bank balance backed by physical ingots
+- **Deposit/Withdraw** - Convert between virtual balance and physical ingots
+- **Exchange** - Convert between ingot denominations (e.g., 10 Iron → 1 Gold)
+- **Consolidate** - Combine lower-tier ingots into higher ones
 
 ### API
 - Full provider API for other plugins
-- Drop coins at entity positions
+- Compatible with Ecotale Core economy
 - Secure transaction handling
 
 ## Installation
 
 1. Install [Ecotale](https://github.com/Tera-bytez/Ecotale) first
-2. Download `EcotaleCoins-1.0.0.jar`
+2. Download `EcotaleCoins-1.0.0-vanilla-ingots.jar`
 3. Place in your Hytale `mods/` folder
 4. Start the server
 
-### First Startup Behavior
+**No custom assets needed!** The config file `EcotaleCoins.json` will be created in your world's universe folder on first run.
 
-On first installation, the plugin extracts coin assets to `mods/Ecotale_EcotaleCoins/`. This creates an asset pack that Hytale must load.
+## Configuration
 
-**The server will automatically restart once after extracting assets.** This is expected behavior - Hytale requires a restart to register new asset packs.
+After first startup, edit `saves/<world-name>/universe/EcotaleCoins.json` to customize currency:
 
+```json
+{
+  "CurrencyTiers": {
+    "COPPER": {
+      "ItemId": "Ingredient_Bar_Copper",
+      "Value": 1,
+      "DisplayName": "Copper Bar"
+    },
+    "IRON": {
+      "ItemId": "Ingredient_Bar_Iron",
+      "Value": 10,
+      "DisplayName": "Iron Bar"
+    },
+    "GOLD": {
+      "ItemId": "Ingredient_Bar_Gold",
+      "Value": 1000,
+      "DisplayName": "Gold Bar"
+    }
+  },
+  "EnableBankCommand": true
+}
 ```
-[EcotaleCoins] First-time setup detected. Restarting server to load assets...
+
+### Customizing Currency
+
+Want to use gems instead of ingots? Just change the `ItemId` fields:
+
+```json
+{
+  "CurrencyTiers": {
+    "EMERALD": {
+      "ItemId": "Gem_Emerald",
+      "Value": 1,
+      "DisplayName": "Emerald"
+    },
+    "RUBY": {
+      "ItemId": "Gem_Ruby",
+      "Value": 100,
+      "DisplayName": "Ruby"
+    },
+    "DIAMOND": {
+      "ItemId": "Gem_Diamond",
+      "Value": 10000,
+      "DisplayName": "Diamond"
+    }
+  }
+}
 ```
 
-After the restart, coins will work normally. This only happens once.
+**Important:** The tier keys (e.g., "COPPER", "EMERALD") are for internal use only - change the `DisplayName` to customize what players see.
+
+### Value System
+
+- `Value` determines how much each item is worth in base units
+- Exchange rates are automatic based on values (e.g., 10x copper = 1x iron if iron value is 10)
+- You can use any values - doesn't have to be 1:10 ratio
+- Example: 1, 5, 25, 100 for a different progression
 
 ## Commands
 

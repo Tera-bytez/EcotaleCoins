@@ -129,6 +129,42 @@ public class CoinManager {
         return remaining <= 0;
     }
 
+    /**
+     * Take coins from player for deposit (rounds up, no change given).
+     * When depositing, if exact change can't be made, the amount is rounded UP
+     * to the nearest denomination and that full amount is deposited.
+     *
+     * Uses ASCENDING order (smallest to largest) to minimize overpayment.
+     * Example: Depositing $5 with $3 copper coins takes 2 copper ($6) and deposits $6.
+     *
+     * @return The actual amount taken (may be more than requested)
+     */
+    public static long takeCoinsForDeposit(@Nonnull Player player, long requestedAmount) {
+        if (requestedAmount <= 0) return 0;
+
+        long balanceBefore = countCoins(player);
+        if (balanceBefore < requestedAmount) {
+            return 0; // Can't afford
+        }
+
+        Inventory inventory = player.getInventory();
+        long remaining = requestedAmount;
+
+        // Remove coins in ASCENDING order (smallest first) to minimize overpayment
+        // This ensures we use smallest denominations possible and minimize rounding
+        for (CoinType type : CoinType.values()) { // values() returns ascending order
+            if (remaining <= 0) break;
+
+            remaining = removeCoinsOfType(inventory.getStorage(), type, remaining);
+            remaining = removeCoinsOfType(inventory.getHotbar(), type, remaining);
+            remaining = removeCoinsOfType(inventory.getBackpack(), type, remaining);
+        }
+
+        // Calculate actual value taken (NO CHANGE GIVEN - rounds up)
+        long balanceAfter = countCoins(player);
+        return balanceBefore - balanceAfter;
+    }
+
     private static long removeCoinsOfType(ItemContainer container, CoinType type, long remaining) {
         if (remaining <= 0) return remaining;
 
