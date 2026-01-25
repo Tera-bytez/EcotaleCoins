@@ -1,18 +1,19 @@
-# EcotaleCoins - Vanilla Ingot Currency for Hytale
+# EcotaleCoins - Configurable Physical Currency for Hytale
 
-**Modified version using vanilla Hytale metal ingots as physical currency.** Banking system for the Ecotale economy using the game's existing metal bars.
+**Config-driven physical currency system.** Define which items are currency and their values in a simple JSON config file - no code changes needed!
 
-![Version](https://img.shields.io/badge/version-1.0.0--vanilla--ingots-blue)
+![Version](https://img.shields.io/badge/version-2.0.0--configurable-blue)
 ![Modified By](https://img.shields.io/badge/modified--by-mad--001-purple)
 ![Requires](https://img.shields.io/badge/requires-Ecotale-green)
 
 ## What's Different?
 
-This is a **modified fork** that uses vanilla Hytale metal ingots instead of custom coin items:
-- ✅ No custom textures or models needed
-- ✅ Works with existing game items
-- ✅ No first-time server restart required
-- ✅ Players can mine ingots and deposit them directly
+This is a **modified fork** with a powerful configuration system:
+- ✅ **JSON configuration** - Define currency items in `EcotaleCoins.json`
+- ✅ **No recompilation** - Change currency types without editing code
+- ✅ **Flexible values** - Set custom conversion rates between tiers
+- ✅ **Default: Vanilla ingots** - Uses Hytale's metal bars out of the box
+- ✅ **Easy customization** - Switch to gems, custom items, or anything else
 
 ## Features
 
@@ -40,13 +41,69 @@ This is a **modified fork** that uses vanilla Hytale metal ingots instead of cus
 3. Place in your Hytale `mods/` folder
 4. Start the server
 
-**No restart required!** Since this uses vanilla items, there are no custom assets to load.
+**No custom assets needed!** The config file `EcotaleCoins.json` will be created in your world's universe folder on first run.
 
-```
-[EcotaleCoins] First-time setup detected. Restarting server to load assets...
+## Configuration
+
+After first startup, edit `saves/<world-name>/universe/EcotaleCoins.json` to customize currency:
+
+```json
+{
+  "CurrencyTiers": {
+    "COPPER": {
+      "ItemId": "Ingredient_Bar_Copper",
+      "Value": 1,
+      "DisplayName": "Copper Bar"
+    },
+    "IRON": {
+      "ItemId": "Ingredient_Bar_Iron",
+      "Value": 10,
+      "DisplayName": "Iron Bar"
+    },
+    "GOLD": {
+      "ItemId": "Ingredient_Bar_Gold",
+      "Value": 1000,
+      "DisplayName": "Gold Bar"
+    }
+  },
+  "EnableBankCommand": true
+}
 ```
 
-After the restart, coins will work normally. This only happens once.
+### Customizing Currency
+
+Want to use gems instead of ingots? Just change the `ItemId` fields:
+
+```json
+{
+  "CurrencyTiers": {
+    "EMERALD": {
+      "ItemId": "Gem_Emerald",
+      "Value": 1,
+      "DisplayName": "Emerald"
+    },
+    "RUBY": {
+      "ItemId": "Gem_Ruby",
+      "Value": 100,
+      "DisplayName": "Ruby"
+    },
+    "DIAMOND": {
+      "ItemId": "Gem_Diamond",
+      "Value": 10000,
+      "DisplayName": "Diamond"
+    }
+  }
+}
+```
+
+**Important:** The tier keys (e.g., "COPPER", "EMERALD") are for internal use only - change the `DisplayName` to customize what players see.
+
+### Value System
+
+- `Value` determines how much each item is worth in base units
+- Exchange rates are automatic based on values (e.g., 10x copper = 1x iron if iron value is 10)
+- You can use any values - doesn't have to be 1:10 ratio
+- Example: 1, 5, 25, 100 for a different progression
 
 ## Commands
 
