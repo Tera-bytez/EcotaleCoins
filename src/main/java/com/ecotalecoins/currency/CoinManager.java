@@ -134,6 +134,7 @@ public class CoinManager {
      * When depositing, if exact change can't be made, the amount is rounded UP
      * to the nearest denomination and that full amount is deposited.
      *
+     * Uses ASCENDING order (smallest to largest) to minimize overpayment.
      * Example: Depositing $5 with $3 copper coins takes 2 copper ($6) and deposits $6.
      *
      * @return The actual amount taken (may be more than requested)
@@ -149,8 +150,9 @@ public class CoinManager {
         Inventory inventory = player.getInventory();
         long remaining = requestedAmount;
 
-        // Remove coins to cover the requested amount (may overpay due to Math.ceil)
-        for (CoinType type : CoinType.valuesDescending()) {
+        // Remove coins in ASCENDING order (smallest first) to minimize overpayment
+        // This ensures we use smallest denominations possible and minimize rounding
+        for (CoinType type : CoinType.values()) { // values() returns ascending order
             if (remaining <= 0) break;
 
             remaining = removeCoinsOfType(inventory.getStorage(), type, remaining);
