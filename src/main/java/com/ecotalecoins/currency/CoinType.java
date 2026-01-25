@@ -1,16 +1,17 @@
 package com.ecotalecoins.currency;
 
 /**
- * Coin types based on in-game ores.
- * Values are in base units (1 Copper = 1 unit).
+ * Currency types using vanilla Hytale metal ingots.
+ * Values are in base units (1 Copper Bar = 1 unit).
+ * Uses vanilla game items instead of custom coins.
  */
 public enum CoinType {
-    COPPER("Coin_Copper", 1, "Copper"),
-    IRON("Coin_Iron", 10, "Iron"),
-    COBALT("Coin_Cobalt", 100, "Cobalt"),
-    GOLD("Coin_Gold", 1_000, "Gold"),
-    MITHRIL("Coin_Mithril", 10_000, "Mithril"),
-    ADAMANTITE("Coin_Adamantite", 100_000, "Adamantite");
+    COPPER("Ingredient_Bar_Copper", 1, "Copper Bar"),
+    IRON("Ingredient_Bar_Iron", 10, "Iron Bar"),
+    COBALT("Ingredient_Bar_Cobalt", 100, "Cobalt Bar"),
+    GOLD("Ingredient_Bar_Gold", 1_000, "Gold Bar"),
+    MITHRIL("Ingredient_Bar_Mithril", 10_000, "Mithril Bar"),
+    ADAMANTITE("Ingredient_Bar_Adamantite", 100_000, "Adamantite Bar");
 
     private final String itemId;
     private final long value;

@@ -1,50 +1,46 @@
-# EcotaleCoins - Physical Currency for Hytale
+# EcotaleCoins - Vanilla Ingot Currency for Hytale
 
-Physical coin items and banking system for the Ecotale economy. Players collect coins in the world and store them in the bank.
+**Modified version using vanilla Hytale metal ingots as physical currency.** Banking system for the Ecotale economy using the game's existing metal bars.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Author](https://img.shields.io/badge/author-Tera--bytez-purple)
+![Version](https://img.shields.io/badge/version-1.0.0--vanilla--ingots-blue)
+![Modified By](https://img.shields.io/badge/modified--by-mad--001-purple)
 ![Requires](https://img.shields.io/badge/requires-Ecotale-green)
 
-## Screenshots
+## What's Different?
 
-### Bank GUI
-![Bank GUI](docs/screenshots/bank.gif)
-
-### Physical Coins
-![Physical Coins](docs/screenshots/coins.gif)
+This is a **modified fork** that uses vanilla Hytale metal ingots instead of custom coin items:
+- ✅ No custom textures or models needed
+- ✅ Works with existing game items
+- ✅ No first-time server restart required
+- ✅ Players can mine ingots and deposit them directly
 
 ## Features
 
-### Physical Currency
-- **6 coin denominations** - COPPER, IRON, COBALT, GOLD, MITHRIL, ADAMANTITE
-- **World drops** - Coins drop from mobs when EcotaleJobs is installed
+### Vanilla Ingot Currency
+- **6 metal tiers** - COPPER, IRON, COBALT, GOLD, MITHRIL, ADAMANTITE bars
+- **1:10 conversion rates** - Each tier worth 10x the previous (same as original)
+- **Uses vanilla items** - `Ingredient_Bar_*` items already in the game
 - **Optimal breakdown** - Large values auto-convert to highest denominations
 
-
 ### Bank System
-- **Secure storage** - Bank balance separate from inventory coins
-- **Deposit/Withdraw** - Convert between bank and physical coins
-- **Exchange** - Convert between coin denominations
-- **Consolidate** - Combine small coins into larger ones
+- **Secure storage** - Bank balance backed by physical ingots
+- **Deposit/Withdraw** - Convert between virtual balance and physical ingots
+- **Exchange** - Convert between ingot denominations (e.g., 10 Iron → 1 Gold)
+- **Consolidate** - Combine lower-tier ingots into higher ones
 
 ### API
 - Full provider API for other plugins
-- Drop coins at entity positions
+- Compatible with Ecotale Core economy
 - Secure transaction handling
 
 ## Installation
 
 1. Install [Ecotale](https://github.com/Tera-bytez/Ecotale) first
-2. Download `EcotaleCoins-1.0.0.jar`
+2. Download `EcotaleCoins-1.0.0-vanilla-ingots.jar`
 3. Place in your Hytale `mods/` folder
 4. Start the server
 
-### First Startup Behavior
-
-On first installation, the plugin extracts coin assets to `mods/Ecotale_EcotaleCoins/`. This creates an asset pack that Hytale must load.
-
-**The server will automatically restart once after extracting assets.** This is expected behavior - Hytale requires a restart to register new asset packs.
+**No restart required!** Since this uses vanilla items, there are no custom assets to load.
 
 ```
 [EcotaleCoins] First-time setup detected. Restarting server to load assets...
