@@ -2,6 +2,36 @@
 
 All notable changes to EcotaleCoins will be documented in this file.
 
+## [1.1.1] - 2026-01-29
+
+### New Features
+
+#### Configurable Coin System
+- **Custom coin values** - Change the value of each coin type in `config.json`
+- **Custom coin names** - Rename coins to match your server's theme
+- **Toggle which coins are enabled** - Disable coins you don't want to use
+
+#### Bank GUI Customization
+- **Hide Exchange tab** - Set `show_exchange_tab: false` to remove it
+- **Hide Consolidate button** - Set `show_consolidate_button: false` to remove it
+- **Proper tab centering** - Tabs stay centered when Exchange is hidden
+
+#### Permissions
+- **Updated permission system** - The `/bank` command now requires `ecotale.ecotalecoins.command.bank`
+
+### For Server Admins
+
+To give all players access to the bank:
+```
+/lp group default permission set ecotale.ecotalecoins.command.bank true
+```
+
+### Thanks
+
+- **AfkF24** for the configurable coin system contribution!
+
+---
+
 ## [1.0.0] - 2026-01-18
 
 ### First Release

@@ -6,7 +6,6 @@ import com.ecotalecoins.transaction.SecureTransaction;
 import com.ecotale.api.EcotaleAPI;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.CommandSender;
@@ -38,7 +37,7 @@ public class BankCommand extends AbstractAsyncCommand {
     
     public BankCommand() {
         super("bank", "Manage your bank account");
-        this.setPermissionGroup(GameMode.Adventure);
+        // Permission check is handled explicitly in executeAsync
         
         this.addSubCommand(new BankDepositCommand());
         this.addSubCommand(new BankWithdrawCommand());
@@ -64,6 +63,16 @@ public class BankCommand extends AbstractAsyncCommand {
         World world = store.getExternalData().getWorld();
         if (world == null) {
             return CompletableFuture.completedFuture(null);
+        }
+
+        // Strict permission check
+        if (!player.hasPermission("ecotale.ecotalecoins.command.bank")) {
+            CompletableFuture<Void> denied = new CompletableFuture<>();
+            world.execute(() -> {
+                ctx.sendMessage(Message.raw("You don't have permission to use the bank.").color(Color.RED));
+                denied.complete(null);
+            });
+            return denied;
         }
 
         // No subcommand = open Bank GUI
@@ -104,6 +113,16 @@ public class BankCommand extends AbstractAsyncCommand {
             World world = store.getExternalData().getWorld();
             if (world == null) {
                 return CompletableFuture.completedFuture(null);
+            }
+
+            // Permission check
+            if (!player.hasPermission("ecotale.ecotalecoins.command.bank")) {
+                CompletableFuture<Void> denied = new CompletableFuture<>();
+                world.execute(() -> {
+                    ctx.sendMessage(Message.raw("You don't have permission to use the bank.").color(Color.RED));
+                    denied.complete(null);
+                });
+                return denied;
             }
 
             String amountStr = ctx.get(amountArg);
@@ -186,6 +205,16 @@ public class BankCommand extends AbstractAsyncCommand {
             World world = store.getExternalData().getWorld();
             if (world == null) {
                 return CompletableFuture.completedFuture(null);
+            }
+
+            // Permission check
+            if (!player.hasPermission("ecotale.ecotalecoins.command.bank")) {
+                CompletableFuture<Void> denied = new CompletableFuture<>();
+                world.execute(() -> {
+                    ctx.sendMessage(Message.raw("You don't have permission to use the bank.").color(Color.RED));
+                    denied.complete(null);
+                });
+                return denied;
             }
 
             String amountStr = ctx.get(amountArg);
