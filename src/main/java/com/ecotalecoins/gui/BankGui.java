@@ -102,13 +102,13 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
         cmd.set("#PocketBalance.Text", symbol + formatLong(pocketBalance));
         
         // ═══════════════ TAB BAR BINDINGS ═══════════════
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabWallet",
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab4Wallet",
             EventData.of(BankGuiData.KEY_TAB, "Wallet"), false);
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabDeposit",
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab4Deposit",
             EventData.of(BankGuiData.KEY_TAB, "Deposit"), false);
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabWithdraw",
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab4Withdraw",
             EventData.of(BankGuiData.KEY_TAB, "Withdraw"), false);
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabExchange",
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab4Exchange",
             EventData.of(BankGuiData.KEY_TAB, "Exchange"), false);
         
         // Tab visibility
@@ -139,10 +139,10 @@ public class BankGui extends InteractiveCustomUIPage<BankGui.BankGuiData> {
         String withdrawName = getTabName(Tab.WITHDRAW);
         String exchangeName = getTabName(Tab.EXCHANGE);
         
-        cmd.set("#TabWallet.Text", currentTab == Tab.WALLET ? "[ " + walletName + " ]" : walletName);
-        cmd.set("#TabDeposit.Text", currentTab == Tab.DEPOSIT ? "[ " + depositName + " ]" : depositName);
-        cmd.set("#TabWithdraw.Text", currentTab == Tab.WITHDRAW ? "[ " + withdrawName + " ]" : withdrawName);
-        cmd.set("#TabExchange.Text", currentTab == Tab.EXCHANGE ? "[ " + exchangeName + " ]" : exchangeName);
+        cmd.set("#Tab4Wallet.Text", currentTab == Tab.WALLET ? "[ " + walletName + " ]" : walletName);
+        cmd.set("#Tab4Deposit.Text", currentTab == Tab.DEPOSIT ? "[ " + depositName + " ]" : depositName);
+        cmd.set("#Tab4Withdraw.Text", currentTab == Tab.WITHDRAW ? "[ " + withdrawName + " ]" : withdrawName);
+        cmd.set("#Tab4Exchange.Text", currentTab == Tab.EXCHANGE ? "[ " + exchangeName + " ]" : exchangeName);
     }
     
     // Update only preview labels for partial updates (preserves TextField focus)
