@@ -5,8 +5,8 @@
   "Categories": ["Currency", "Ecotale"],
   "DropOnDeath": true,
   "TranslationProperties": {
-    "Name": "ecotale.items.coin_mithril.name",
-    "Description": "ecotale.items.coin_mithril.description"
+    "Name": "ecotalecoins.items.coin_mithril.name",
+    "Description": "ecotalecoins.items.coin_mithril.description"
   },
   "IconProperties": {
     "Scale": 1.5,
@@ -35,4 +35,3 @@
   "Scale": 1.0,
   "ItemSoundSetId": "ISS_Items_Metal"
 }
-

@@ -5,8 +5,8 @@
   "Categories": ["Currency", "Ecotale"],
   "DropOnDeath": true,
   "TranslationProperties": {
-    "Name": "ecotale.items.coin_adamantite.name",
-    "Description": "ecotale.items.coin_adamantite.description"
+    "Name": "ecotalecoins.items.coin_adamantite.name",
+    "Description": "ecotalecoins.items.coin_adamantite.description"
   },
   "IconProperties": {
     "Scale": 1.5,
@@ -35,4 +35,3 @@
   "Scale": 1.0,
   "ItemSoundSetId": "ISS_Items_Metal"
 }
-

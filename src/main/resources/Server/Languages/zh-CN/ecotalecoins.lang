@@ -1,0 +1,30 @@
+# EcotaleCoins - 中文翻译
+# 格式: 键=值
+# 注意: 键会被 Hytale 自动添加 "ecotalecoins." 前缀
+
+# ========== 货币名称 (用于银行GUI) ==========
+coins.copper=铜
+coins.iron=铁
+coins.cobalt=钴
+coins.gold=金
+coins.mithril=秘银
+coins.adamantite=精金
+
+# ========== 物品名称和描述 ==========
+items.coin_copper.name=铜币
+items.coin_copper.description=价值 1
+
+items.coin_iron.name=铁币
+items.coin_iron.description=价值 10
+
+items.coin_cobalt.name=钴币
+items.coin_cobalt.description=价值 100
+
+items.coin_gold.name=金币
+items.coin_gold.description=价值 1,000
+
+items.coin_adamantite.name=精金币
+items.coin_adamantite.description=价值 10,000
+
+items.coin_mithril.name=秘银币
+items.coin_mithril.description=价值 100,000

@@ -5,14 +5,16 @@
   "Categories": ["Currency", "Ecotale"],
   "DropOnDeath": true,
   "TranslationProperties": {
-    "Name": "ecotale.items.coin_gold.name",
-    "Description": "ecotale.items.coin_gold.description"
+    "Name": "ecotalecoins.items.coin_gold.name",
+    "Description": "ecotalecoins.items.coin_gold.description"
   },
   "IconProperties": {
     "Scale": 1.5,
     "Rotation": [0, 0, 0],
     "Translation": [0, 0]
   },
+  "Model": "Items/Currency/Coins/Coin_Held.blockymodel",
+  "Texture": "Items/Currency/Coins/Coin_Gold.png",
   "BlockType": {
     "BlockParticleSetId": "Stone",
     "BlockSoundSetId": "Clay_Pot_Small",
@@ -35,4 +37,3 @@
   "Scale": 1.0,
   "ItemSoundSetId": "ISS_Items_Metal"
 }
-

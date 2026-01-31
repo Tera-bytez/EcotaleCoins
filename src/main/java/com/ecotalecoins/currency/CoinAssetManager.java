@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Map;
 import java.util.logging.Level;
 
 /**
@@ -26,6 +25,7 @@ public class CoinAssetManager {
     private static final String ICONS_PATH = "Common/Icons/Items/Coins";
     private static final String UI_PATH = "Common/UI/Custom/Pages";
     private static final String SERVER_ITEMS_PATH = "Server/Item/Items";
+    private static final String LANGUAGES_PATH = "Server/Languages";
     private static final String MODEL_DROPPED = "Coin.blockymodel";
     private static final String MODEL_HELD = "Coin_Held.blockymodel";
     // Assets stored in /templates/ so Hytale won't auto-load them
@@ -33,6 +33,11 @@ public class CoinAssetManager {
     private static final String JAR_ICONS_BASE = "/templates/Common/Icons/Items/Coins/";
     private static final String JAR_UI_BASE = "/templates/Common/UI/Custom/Pages/";
     private static final String JAR_ITEMS_BASE = "/templates/Server/Item/Items/";
+    
+    // Language file locales to extract
+    private static final String[] LOCALES = {
+        "en-US", "es-ES", "pt-BR", "de-DE", "fr-FR", "ru-RU", "ja-JP", "zh-CN", "tr-TR"
+    };
     
     private final Path assetPackRoot;
     private final Path coinsFolder;
@@ -99,6 +104,11 @@ public class CoinAssetManager {
             for (CoinType type : CoinType.values()) {
                 String itemName = "Coin_" + capitalizeFirst(type.name().toLowerCase()) + ".json";
                 extractItemDefinitionIfMissing(itemName);
+            }
+            
+            // Extract language files (so admins can customize coin names and descriptions)
+            for (String locale : LOCALES) {
+                extractLanguageFileIfMissing(locale);
             }
             
             this.firstTimeSetup = !manifestExisted;
@@ -258,6 +268,32 @@ public class CoinAssetManager {
             
             Files.copy(is, targetPath, StandardCopyOption.REPLACE_EXISTING);
             logger.at(Level.INFO).log("[EcotaleCoins] Extracted UI: %s", uiFileName);
+        }
+    }
+    
+    private void extractLanguageFileIfMissing(String locale) throws IOException {
+        // Create locale directory if needed
+        Path localeDir = assetPackRoot.resolve(LANGUAGES_PATH).resolve(locale);
+        if (!Files.exists(localeDir)) {
+            Files.createDirectories(localeDir);
+        }
+        
+        Path targetPath = localeDir.resolve("ecotalecoins.lang");
+        
+        if (Files.exists(targetPath)) {
+            return; // Don't overwrite existing customizations
+        }
+        
+        // Language files are in Server/Languages/ (not templates) 
+        String resourcePath = "/Server/Languages/" + locale + "/ecotalecoins.lang";
+        try (InputStream is = getClass().getResourceAsStream(resourcePath)) {
+            if (is == null) {
+                logger.at(Level.FINE).log("[EcotaleCoins] Language file not found in JAR: %s", resourcePath);
+                return;
+            }
+            
+            Files.copy(is, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            logger.at(Level.INFO).log("[EcotaleCoins] Extracted language file: %s/ecotalecoins.lang", locale);
         }
     }
     

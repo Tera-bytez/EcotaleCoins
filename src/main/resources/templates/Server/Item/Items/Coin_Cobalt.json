@@ -5,14 +5,16 @@
   "Categories": ["Currency", "Ecotale"],
   "DropOnDeath": true,
   "TranslationProperties": {
-    "Name": "ecotale.items.coin_cobalt.name",
-    "Description": "ecotale.items.coin_cobalt.description"
+    "Name": "ecotalecoins.items.coin_cobalt.name",
+    "Description": "ecotalecoins.items.coin_cobalt.description"
   },
   "IconProperties": {
     "Scale": 1.5,
     "Rotation": [0, 0, 0],
     "Translation": [0, 0]
   },
+  "Model": "Items/Currency/Coins/Coin_Held.blockymodel",
+  "Texture": "Items/Currency/Coins/Coin_Cobalt.png",
   "BlockType": {
     "BlockParticleSetId": "Stone",
     "BlockSoundSetId": "Clay_Pot_Small",
@@ -29,10 +31,9 @@
     "Material": "Solid",
     "Opacity": "Semitransparent",
     "VariantRotation": "NESW",
-    "ParticleColor": "#0047AB",
+    "ParticleColor": "#4169E1",
     "CustomModelScale": 0.3
   },
   "Scale": 1.0,
   "ItemSoundSetId": "ISS_Items_Metal"
 }
-

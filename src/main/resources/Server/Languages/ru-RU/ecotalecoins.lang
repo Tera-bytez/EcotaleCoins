@@ -1,0 +1,30 @@
+# EcotaleCoins - Русские переводы
+# Формат: ключ=значение
+# Примечание: Ключи автоматически имеют префикс "ecotalecoins." от Hytale
+
+# ========== Названия монет (для GUI банка) ==========
+coins.copper=Медь
+coins.iron=Железо
+coins.cobalt=Кобальт
+coins.gold=Золото
+coins.mithril=Мифрил
+coins.adamantite=Адамантит
+
+# ========== Названия и описания предметов ==========
+items.coin_copper.name=Медная монета
+items.coin_copper.description=Стоит 1
+
+items.coin_iron.name=Железная монета
+items.coin_iron.description=Стоит 10
+
+items.coin_cobalt.name=Кобальтовая монета
+items.coin_cobalt.description=Стоит 100
+
+items.coin_gold.name=Золотая монета
+items.coin_gold.description=Стоит 1 000
+
+items.coin_adamantite.name=Адамантитовая монета
+items.coin_adamantite.description=Стоит 10 000
+
+items.coin_mithril.name=Мифриловая монета
+items.coin_mithril.description=Стоит 100 000

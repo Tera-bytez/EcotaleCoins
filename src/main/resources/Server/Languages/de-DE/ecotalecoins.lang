@@ -1,0 +1,30 @@
+# EcotaleCoins - Deutsche Übersetzungen
+# Format: schlüssel=wert
+# Hinweis: Schlüssel werden automatisch mit "ecotalecoins." von Hytale vorangestellt
+
+# ========== Münzennamen (für Bank-GUI) ==========
+coins.copper=Kupfer
+coins.iron=Eisen
+coins.cobalt=Kobalt
+coins.gold=Gold
+coins.mithril=Mithril
+coins.adamantite=Adamantit
+
+# ========== Gegenstandsnamen und Beschreibungen ==========
+items.coin_copper.name=Kupfermünze
+items.coin_copper.description=Wert 1
+
+items.coin_iron.name=Eisenmünze
+items.coin_iron.description=Wert 10
+
+items.coin_cobalt.name=Kobaltmünze
+items.coin_cobalt.description=Wert 100
+
+items.coin_gold.name=Goldmünze
+items.coin_gold.description=Wert 1.000
+
+items.coin_adamantite.name=Adamantitmünze
+items.coin_adamantite.description=Wert 10.000
+
+items.coin_mithril.name=Mithrilmünze
+items.coin_mithril.description=Wert 100.000

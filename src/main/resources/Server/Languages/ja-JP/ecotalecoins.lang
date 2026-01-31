@@ -1,0 +1,30 @@
+# EcotaleCoins - 日本語翻訳
+# 形式: キー=値
+# 注: キーは Hytale によって自動的に "ecotalecoins." が付加されます
+
+# ========== コイン名 (銀行GUIで使用) ==========
+coins.copper=銅
+coins.iron=鉄
+coins.cobalt=コバルト
+coins.gold=金
+coins.mithril=ミスリル
+coins.adamantite=アダマンタイト
+
+# ========== アイテム名と説明 ==========
+items.coin_copper.name=銅貨
+items.coin_copper.description=価値 1
+
+items.coin_iron.name=鉄貨
+items.coin_iron.description=価値 10
+
+items.coin_cobalt.name=コバルト貨
+items.coin_cobalt.description=価値 100
+
+items.coin_gold.name=金貨
+items.coin_gold.description=価値 1,000
+
+items.coin_adamantite.name=アダマンタイト貨
+items.coin_adamantite.description=価値 10,000
+
+items.coin_mithril.name=ミスリル貨
+items.coin_mithril.description=価値 100,000

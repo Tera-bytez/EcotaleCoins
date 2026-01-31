@@ -1,0 +1,30 @@
+# EcotaleCoins - Traducciones en Español
+# Formato: key=valor
+# Nota: Las keys se prefijan automáticamente con "ecotalecoins." por Hytale
+
+# ========== Nombres de Monedas (para GUI del Banco) ==========
+coins.copper=Cobre
+coins.iron=Hierro
+coins.cobalt=Cobalto
+coins.gold=Oro
+coins.mithril=Mithril
+coins.adamantite=Adamantita
+
+# ========== Nombres y Descripciones de Items ==========
+items.coin_copper.name=Moneda de Cobre
+items.coin_copper.description=Vale 1
+
+items.coin_iron.name=Moneda de Hierro
+items.coin_iron.description=Vale 10
+
+items.coin_cobalt.name=Moneda de Cobalto
+items.coin_cobalt.description=Vale 100
+
+items.coin_gold.name=Moneda de Oro
+items.coin_gold.description=Vale 1,000
+
+items.coin_adamantite.name=Moneda de Adamantita
+items.coin_adamantite.description=Vale 10,000
+
+items.coin_mithril.name=Moneda de Mithril
+items.coin_mithril.description=Vale 100,000

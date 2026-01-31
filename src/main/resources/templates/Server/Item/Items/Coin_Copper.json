@@ -5,8 +5,8 @@
   "Categories": ["Currency", "Ecotale"],
   "DropOnDeath": true,
   "TranslationProperties": {
-    "Name": "ecotale.items.coin_copper.name",
-    "Description": "ecotale.items.coin_copper.description"
+    "Name": "ecotalecoins.items.coin_copper.name",
+    "Description": "ecotalecoins.items.coin_copper.description"
   },
   "IconProperties": {
     "Scale": 1.5,
@@ -37,4 +37,3 @@
   "Scale": 1.0,
   "ItemSoundSetId": "ISS_Items_Metal"
 }
-

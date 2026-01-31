@@ -1,0 +1,30 @@
+# EcotaleCoins - Türkçe Çeviriler
+# Format: anahtar=değer
+# Not: Anahtarlar Hytale tarafından otomatik olarak "ecotalecoins." ile öneklenir
+
+# ========== Sikke Adları (Banka GUI için) ==========
+coins.copper=Bakır
+coins.iron=Demir
+coins.cobalt=Kobalt
+coins.gold=Altın
+coins.mithril=Mithril
+coins.adamantite=Adamantit
+
+# ========== Öğe Adları ve Açıklamaları ==========
+items.coin_copper.name=Bakır Sikke
+items.coin_copper.description=Değeri 1
+
+items.coin_iron.name=Demir Sikke
+items.coin_iron.description=Değeri 10
+
+items.coin_cobalt.name=Kobalt Sikke
+items.coin_cobalt.description=Değeri 100
+
+items.coin_gold.name=Altın Sikke
+items.coin_gold.description=Değeri 1.000
+
+items.coin_adamantite.name=Adamantit Sikke
+items.coin_adamantite.description=Değeri 10.000
+
+items.coin_mithril.name=Mithril Sikke
+items.coin_mithril.description=Değeri 100.000

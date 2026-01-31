@@ -1,0 +1,30 @@
+# EcotaleCoins - Traductions Françaises
+# Format: clé=valeur
+# Note: Les clés sont automatiquement préfixées avec "ecotalecoins." par Hytale
+
+# ========== Noms des Pièces (pour l'interface de la Banque) ==========
+coins.copper=Cuivre
+coins.iron=Fer
+coins.cobalt=Cobalt
+coins.gold=Or
+coins.mithril=Mithril
+coins.adamantite=Adamantite
+
+# ========== Noms et Descriptions des Objets ==========
+items.coin_copper.name=Pièce de Cuivre
+items.coin_copper.description=Vaut 1
+
+items.coin_iron.name=Pièce de Fer
+items.coin_iron.description=Vaut 10
+
+items.coin_cobalt.name=Pièce de Cobalt
+items.coin_cobalt.description=Vaut 100
+
+items.coin_gold.name=Pièce d'Or
+items.coin_gold.description=Vaut 1 000
+
+items.coin_adamantite.name=Pièce d'Adamantite
+items.coin_adamantite.description=Vaut 10 000
+
+items.coin_mithril.name=Pièce de Mithril
+items.coin_mithril.description=Vaut 100 000
