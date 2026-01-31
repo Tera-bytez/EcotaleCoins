@@ -1,3 +1,13 @@
+## ⚠️ Archived Project
+
+This repository has been archived and is no longer receiving public updates.
+
+**The code remains available under the MIT License** for use, modification, and distribution according to its terms.
+
+Development continues in a private version. If you're interested in commercial licensing or collaboration, feel free to reach out at @michidevcl on discord
+
+Thank you to everyone who used and contributed to this project! 
+
 # EcotaleCoins - Physical Currency for Hytale
 
 Physical coin items and banking system for the Ecotale economy. Players collect coins in the world and store them in the bank.
